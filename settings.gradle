@@ -1,0 +1,2 @@
+rootProject.name = "MoneyReportV2"
+include ':app'

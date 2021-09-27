@@ -22,10 +22,10 @@ interface PemasukanDao {
     @Query("SELECT * FROM pemasukan WHERE pemasukan.tanggal = :date")
     fun getPemasukanByDate(date: String): LiveData<List<Pemasukan>>
 
-    @Query("SELECT * FROM pemasukan WHERE pemasukan.kategori = :category")
-    fun getPemasukanByCategory(category: String): LiveData<List<Pemasukan>>
-
-    @Query("SELECT * FROM pemasukan WHERE pemasukan.kategori= :category AND pemasukan.tanggal =:date")
-    fun getPemasukanByCategoryAndDate(category: String, date: String): LiveData<List<Pemasukan>>
+//    @Query("SELECT * FROM pemasukan WHERE pemasukan.kategori = :category")
+//    fun getPemasukanByCategory(category: String): LiveData<List<Pemasukan>>
+//
+//    @Query("SELECT * FROM pemasukan WHERE pemasukan.kategori= :category AND pemasukan.tanggal =:date")
+//    fun getPemasukanByCategoryAndDate(category: String, date: String): LiveData<List<Pemasukan>>
 
 }

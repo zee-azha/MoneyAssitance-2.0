@@ -2,6 +2,7 @@ package com.example.moneyreportv2.database.pengeluaran
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import com.example.moneyreportv2.database.pemasukan.Pemasukan
 
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -34,4 +35,5 @@ class PengeluaranRepository (application: Application) {
             mPengeluaranDao.update(pengeluaran)
         }
     }
+    fun getPengeluaranByDate(date: String):LiveData<List<Pengeluaran>> = mPengeluaranDao.getPengeluaranByDate(date)
 }

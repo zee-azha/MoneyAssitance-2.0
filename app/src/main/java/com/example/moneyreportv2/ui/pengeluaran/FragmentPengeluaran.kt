@@ -1,6 +1,7 @@
 package com.example.moneyreportv2.ui.pengeluaran
 
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 
@@ -15,6 +16,8 @@ import com.example.moneyreportv2.databinding.FragmentPengeluaranBinding
 import com.example.moneyreportv2.helper.pengeluaran.PengeluaranAdapter
 import com.example.moneyreportv2.viewmodel.pengeluaran.PengeluaranMainViewModel
 import com.example.moneyreportv2.viewmodel.pengeluaran.PengeluaranViewModelFactory
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class FragmentPengeluaran : Fragment(R.layout.fragment_pengeluaran){
@@ -22,6 +25,7 @@ class FragmentPengeluaran : Fragment(R.layout.fragment_pengeluaran){
     private var _activityMainBinding : FragmentPengeluaranBinding? = null
     private val binding get() = _activityMainBinding
     private lateinit var adapter: PengeluaranAdapter
+    private var dateFormatter: SimpleDateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,12 +44,37 @@ class FragmentPengeluaran : Fragment(R.layout.fragment_pengeluaran){
             }
         }
 
-        val mainViewModel = obtainViewModel(activity as AppCompatActivity)
-        mainViewModel.getPengeluaran().observe(viewLifecycleOwner,{PengeluaranList->
-            if (PengeluaranList != null){
-                adapter.setListPengeluaran(PengeluaranList)
+        binding?.edtDate?.setOnClickListener{
+            showDialog()
+
+        }
+        binding?.btnSearch?.setOnClickListener{
+            val date = binding?.edtDate?.text.toString()
+            if (date.isNotEmpty()){
+                val mainViewModel = obtainViewModel(activity as AppCompatActivity)
+                mainViewModel.getPengeluaranByDate(date).observe(viewLifecycleOwner,{pemasukanList->
+                    if (pemasukanList != null){
+                        adapter.setListPengeluaran(pemasukanList)
+                    }
+                })
+            }else{
+                val mainViewModel = obtainViewModel(activity as AppCompatActivity)
+                mainViewModel.getPengeluaran().observe(viewLifecycleOwner, { PengeluaranList ->
+                    if (PengeluaranList != null) {
+                        adapter.setListPengeluaran(PengeluaranList)
+                    }
+                })
             }
-        })
+
+        }
+
+            val mainViewModel = obtainViewModel(activity as AppCompatActivity)
+            mainViewModel.getPengeluaran().observe(viewLifecycleOwner, { PengeluaranList ->
+                if (PengeluaranList != null) {
+                    adapter.setListPengeluaran(PengeluaranList)
+                }
+            })
+
     }
 
     private fun obtainViewModel(appCompatActivity: AppCompatActivity): PengeluaranMainViewModel {
@@ -53,6 +82,22 @@ class FragmentPengeluaran : Fragment(R.layout.fragment_pengeluaran){
         return ViewModelProvider(appCompatActivity,factory).get(PengeluaranMainViewModel::class.java)
 
 
+    }
+
+    private fun showDialog() {
+        val newCalendar = Calendar.getInstance()
+        val datePickerDialog = activity?.let {
+            DatePickerDialog(
+                it,
+                { view, year, monthOfYear, dayOfMonth ->
+                    val newDate = Calendar.getInstance()
+                    newDate[year, monthOfYear] = dayOfMonth
+                    binding?.edtDate?.setText(dateFormatter.format(newDate.time))
+                }, newCalendar[Calendar.YEAR], newCalendar[Calendar.MONTH],
+                newCalendar[Calendar.DAY_OF_MONTH]
+            )
+        }
+        datePickerDialog?.show()
     }
 
 

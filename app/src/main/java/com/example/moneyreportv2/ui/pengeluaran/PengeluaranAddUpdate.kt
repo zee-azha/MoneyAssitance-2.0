@@ -66,12 +66,16 @@ class PengeluaranAddUpdate : AppCompatActivity(){
             if (pengeluaran != null) {
                 pengeluaran?.let { pengeluaran ->
                     binding?.edtDate?.setText(pengeluaran.date)
-                    if(pengeluaran.category.equals("Utama")){
+                    if(pengeluaran.category.equals("Makan")){
                         binding?.category?.setSelection(0)
-
-                    }else{
+                    }else if(pengeluaran.category.equals("Hiburan")){
                         binding?.category?.setSelection(1)
+                    }else if(pengeluaran.category.equals("Pembayaran")){
+                        binding?.category?.setSelection(2)
+                    }else{
+                        binding?.category?.setSelection(3)
                     }
+
                     binding?.edtAmount?.setText(pengeluaran.amount.toString())
                     binding?.edtDescription?.setText(pengeluaran.description)
                 }

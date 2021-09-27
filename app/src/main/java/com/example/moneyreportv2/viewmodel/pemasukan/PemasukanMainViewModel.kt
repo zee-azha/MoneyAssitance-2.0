@@ -11,4 +11,6 @@ class PemasukanMainViewModel(application: Application): ViewModel() {
     private val mRepository: PemasukanRepository = PemasukanRepository(application)
 
     fun getPemasukan(): LiveData<List<Pemasukan>> = mRepository.getPemasukan()
+
+    fun getPemasukanByDate(date: String): LiveData  <List<Pemasukan>> = mRepository.getPemasukanByDate(date)
 }

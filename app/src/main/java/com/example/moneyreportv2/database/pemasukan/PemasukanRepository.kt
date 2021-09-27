@@ -35,4 +35,6 @@ class PemasukanRepository(application: Application) {
             mPemasukanDao.update(pemasukan)
         }
     }
+
+    fun getPemasukanByDate(date: String):LiveData<List<Pemasukan>> = mPemasukanDao.getPemasukanByDate(date)
 }

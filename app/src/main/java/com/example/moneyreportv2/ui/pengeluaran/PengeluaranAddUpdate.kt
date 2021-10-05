@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneyreportv2.R
-import com.example.moneyreportv2.database.pengeluaran.Pengeluaran
+import com.example.moneyreportv2.database.Laporan
 import com.example.moneyreportv2.databinding.ActivityPengeluaranAddUpdateBinding
 import com.example.moneyreportv2.viewmodel.pengeluaran.PengeluaranAddUpdateViewModel
 import com.example.moneyreportv2.viewmodel.pengeluaran.PengeluaranViewModelFactory
@@ -28,7 +28,7 @@ class PengeluaranAddUpdate : AppCompatActivity(){
     private lateinit var pengeluaranAddUpdateViewModel: PengeluaranAddUpdateViewModel
 
     private var isEdit = false
-    private var pengeluaran: Pengeluaran? = null
+    private var pengeluaran: Laporan? = null
 
     private var _activityPengeluaranAddUpdateBinding: ActivityPengeluaranAddUpdateBinding? = null
     private val binding get() = _activityPengeluaranAddUpdateBinding
@@ -56,7 +56,7 @@ class PengeluaranAddUpdate : AppCompatActivity(){
         if (pengeluaran != null) {
             isEdit = true
         } else {
-            pengeluaran = Pengeluaran()
+            pengeluaran = Laporan()
         }
         val actionBarTitle: String
         val btnTitle: String
@@ -103,14 +103,14 @@ class PengeluaranAddUpdate : AppCompatActivity(){
     private fun submitData() {
         val date = binding?.edtDate?.text.toString().trim()
         val spinner = binding?.category?.selectedItem.toString().trim()
-        val amount = binding?.edtAmount?.text.toString().trim()
+        val expense = binding?.edtAmount?.text.toString().trim()
         val deskripsi = binding?.edtDescription?.text.toString().trim()
         when{
             date.isEmpty()->{
                 binding?.edtDate?.error = getString(R.string.empty)
             } spinner.isEmpty()->{
                 Toast.makeText(this,R.string.empty,Toast.LENGTH_LONG).show()
-            } amount.isEmpty()->{
+            } expense.isEmpty()->{
                 binding?.edtAmount?.error = getString(R.string.empty)
             } deskripsi.isEmpty()->{
                 binding?.edtDescription?.error = getString(R.string.empty)
@@ -118,16 +118,18 @@ class PengeluaranAddUpdate : AppCompatActivity(){
                 pengeluaran?.let { pengeluaran ->
                     pengeluaran?.date = date
                     pengeluaran?.category = spinner
-                    pengeluaran?.amount = amount.toInt()
+                    pengeluaran?.pengeluaran = expense.toInt()
+                    pengeluaran?.pemasukan = null
                     pengeluaran?.description = deskripsi
+                    pengeluaran?.amount = 0 - expense.toInt()
 
                 }
                     if (isEdit){
-                        pengeluaranAddUpdateViewModel.update(pengeluaran as Pengeluaran)
+                        pengeluaranAddUpdateViewModel.update(pengeluaran as Laporan)
                         showToast(getString(R.string.update))
 
                     }else{
-                        pengeluaranAddUpdateViewModel.insert(pengeluaran as Pengeluaran)
+                        pengeluaranAddUpdateViewModel.insert(pengeluaran as Laporan)
                         showToast(getString(R.string.added))
                     }
                     finish()
@@ -205,7 +207,7 @@ class PengeluaranAddUpdate : AppCompatActivity(){
             setCancelable(false)
             setPositiveButton(getString(R.string.yes)) { _, _ ->
                 if (!isDialogClose) {
-                    pengeluaranAddUpdateViewModel.delete(pengeluaran as Pengeluaran)
+                    pengeluaranAddUpdateViewModel.delete(pengeluaran as Laporan)
                     showToast(getString(R.string.deleted))
                 }
                 finish()

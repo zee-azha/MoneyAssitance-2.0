@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneyreportv2.R
-import com.example.moneyreportv2.database.pemasukan.Pemasukan
+import com.example.moneyreportv2.database.Laporan
 import com.example.moneyreportv2.databinding.ActivityPemasukanAddUpdateBinding
 import com.example.moneyreportv2.viewmodel.pemasukan.PemasukanAddUpdateViewModel
 import com.example.moneyreportv2.viewmodel.pemasukan.PemasukanViewModelFactory
@@ -26,13 +26,12 @@ class PemasukanAddUpdate : AppCompatActivity(){
     }
 
     private lateinit var pemasukanAddUpdateViewModel: PemasukanAddUpdateViewModel
-
     private var isEdit = false
-    private var pemasukan:Pemasukan? = null
+    private var pemasukan: Laporan? = null
 
     private var _activityPemasukanAddUpdateBinding: ActivityPemasukanAddUpdateBinding? = null
     private val binding get() = _activityPemasukanAddUpdateBinding
-    private var dateFormatter: SimpleDateFormat = SimpleDateFormat("yyyy/MM/dd",Locale.getDefault())
+    private var dateFormatter: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd",Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +55,8 @@ class PemasukanAddUpdate : AppCompatActivity(){
         if (pemasukan != null) {
             isEdit = true
         } else {
-            pemasukan = Pemasukan()
+            pemasukan = Laporan()
+
         }
         val actionBarTitle: String
         val btnTitle: String
@@ -64,6 +64,7 @@ class PemasukanAddUpdate : AppCompatActivity(){
             actionBarTitle = getString(R.string.change)
             btnTitle = getString(R.string.update)
             if (pemasukan != null) {
+
                 pemasukan?.let { pemasukan ->
                     binding?.edtDate?.setText(pemasukan.date)
                     if(pemasukan.category.equals("Utama")){
@@ -75,6 +76,7 @@ class PemasukanAddUpdate : AppCompatActivity(){
                     binding?.edtAmount?.setText(pemasukan.amount.toString())
                     binding?.edtDescription?.setText(pemasukan.description)
                 }
+
             }
         } else {
             actionBarTitle = getString(R.string.add)
@@ -99,31 +101,36 @@ class PemasukanAddUpdate : AppCompatActivity(){
     private fun submitData() {
         val date = binding?.edtDate?.text.toString().trim()
         val spinner = binding?.category?.selectedItem.toString().trim()
-        val amount = binding?.edtAmount?.text.toString().trim()
+        val income = binding?.edtAmount?.text.toString().trim()
         val deskripsi = binding?.edtDescription?.text.toString().trim()
+
         when{
             date.isEmpty()->{
                 binding?.edtDate?.error = getString(R.string.empty)
             } spinner.isEmpty()->{
                 Toast.makeText(this,R.string.empty,Toast.LENGTH_LONG).show()
-            } amount.isEmpty()->{
+            } income.isEmpty()->{
                 binding?.edtAmount?.error = getString(R.string.empty)
             } deskripsi.isEmpty()->{
                 binding?.edtDescription?.error = getString(R.string.empty)
             }else ->{
+
                 pemasukan?.let { pemasukan ->
                     pemasukan?.date = date
                     pemasukan?.category = spinner
-                    pemasukan?.amount = amount.toInt()
+                    pemasukan?.pemasukan = income.toInt()
+                    pemasukan?.pengeluaran = null
                     pemasukan?.description = deskripsi
+                    pemasukan?.amount = 0 + income.toInt()
 
                 }
+
                     if (isEdit){
-                        pemasukanAddUpdateViewModel.update(pemasukan as Pemasukan)
+                        pemasukanAddUpdateViewModel.update(pemasukan as Laporan)
                         showToast(getString(R.string.update))
 
                     }else{
-                        pemasukanAddUpdateViewModel.insert(pemasukan as Pemasukan)
+                        pemasukanAddUpdateViewModel.insert(pemasukan as Laporan)
                         showToast(getString(R.string.added))
                     }
                     finish()
@@ -201,7 +208,7 @@ class PemasukanAddUpdate : AppCompatActivity(){
             setCancelable(false)
             setPositiveButton(getString(R.string.yes)) { _, _ ->
                 if (!isDialogClose) {
-                    pemasukanAddUpdateViewModel.delete(pemasukan as Pemasukan)
+                    pemasukanAddUpdateViewModel.delete(pemasukan as Laporan)
                     showToast(getString(R.string.deleted))
                 }
                 finish()

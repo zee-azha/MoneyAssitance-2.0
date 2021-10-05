@@ -1,16 +1,20 @@
 package com.example.moneyreportv2.util
 
+import android.provider.SyncStateContract
 import androidx.room.TypeConverter
+import java.text.SimpleDateFormat
 import java.util.*
 
-class DateConverter {
+object DateConverter {
     @TypeConverter
-    fun fromTimestamp(value: Long?): Date? {
-        return value?.let { Date(it) }
+    fun toString(sd: String): Long? {
+        val sdf = SimpleDateFormat("yyyy/mm/dd", Locale.ENGLISH)
+        return sdf.parse(sd).time
     }
 
     @TypeConverter
-    fun dateToTimestamp(date: Date?): Long? {
-        return date?.time?.toLong()
+    fun toLong(longDate: Long): String? {
+        val sdf = SimpleDateFormat("yyyy/mm/dd", Locale.ENGLISH)
+        return sdf.format(Date(longDate))
     }
 }

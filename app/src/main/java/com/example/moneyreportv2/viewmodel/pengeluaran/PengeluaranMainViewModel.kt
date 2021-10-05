@@ -3,15 +3,14 @@ package com.example.moneyreportv2.viewmodel.pengeluaran
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.example.moneyreportv2.database.pemasukan.Pemasukan
-import com.example.moneyreportv2.database.pengeluaran.Pengeluaran
-import com.example.moneyreportv2.database.pengeluaran.PengeluaranRepository
+import com.example.moneyreportv2.database.Laporan
+import com.example.moneyreportv2.database.LaporanRepository
 import java.util.*
 
 class PengeluaranMainViewModel(application: Application): ViewModel() {
-    private val mRepository: PengeluaranRepository = PengeluaranRepository(application)
+    private val mRepository: LaporanRepository   = LaporanRepository(application)
 
-    fun getPengeluaran(): LiveData<List<Pengeluaran>> = mRepository.getPengeluaran()
+    fun getPengeluaran(): LiveData<List<Laporan>> = mRepository.getPengeluaran()
 
-    fun getPengeluaranByDate(date: String): LiveData  <List<Pengeluaran>> = mRepository.getPengeluaranByDate(date)
+    fun getPengeluaranByDate(date: String): LiveData  <List<Laporan>> = mRepository.getPengeluaranByDate(date)
 }

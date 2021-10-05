@@ -1,4 +1,4 @@
-package com.example.moneyreportv2.database.pemasukan
+package com.example.moneyreportv2.database
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
@@ -11,7 +11,7 @@ import java.util.*
 
 @Entity
 @Parcelize
-class Pemasukan (
+class Laporan (
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Int = 0,
@@ -22,10 +22,17 @@ class Pemasukan (
     @ColumnInfo(name = "kategori")
     var category: String? = null,
 
-    @ColumnInfo(name = "pemasukan")
-    var amount: Int? = null,
-
     @ColumnInfo(name = "deskripsi")
-    var description: String? = null
+    var description: String? = null,
+
+    @ColumnInfo(name = "Pemasukan", )
+    var pemasukan: Int? = null,
+
+    @ColumnInfo(name = "pengeluaran")
+    var pengeluaran: Int? = null,
+
+    @ColumnInfo(name = "Total")
+    var amount: Int? = null
+
 
 ):Parcelable

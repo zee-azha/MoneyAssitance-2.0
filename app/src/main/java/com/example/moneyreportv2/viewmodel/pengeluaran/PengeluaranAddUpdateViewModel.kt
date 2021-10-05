@@ -2,22 +2,22 @@ package com.example.moneyreportv2.viewmodel.pengeluaran
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
-import com.example.moneyreportv2.database.pengeluaran.Pengeluaran
-import com.example.moneyreportv2.database.pengeluaran.PengeluaranRepository
+import com.example.moneyreportv2.database.Laporan
+import com.example.moneyreportv2.database.LaporanRepository
 
 
 class PengeluaranAddUpdateViewModel(application: Application): ViewModel() {
-    private val mRepository: PengeluaranRepository = PengeluaranRepository(application)
+    private val mRepository: LaporanRepository = LaporanRepository(application)
 
-    fun insert(pengeluaran: Pengeluaran){
-        mRepository.insertPengeluaran(pengeluaran)
+    fun insert(laporan: Laporan){
+        mRepository.insert(laporan)
     }
 
-    fun update(Pengeluaran: Pengeluaran){
-        mRepository.updatePengeluaran(Pengeluaran)
+    fun update(laporan: Laporan){
+        mRepository.update(laporan)
     }
 
-    fun delete(Pengeluaran: Pengeluaran){
-        mRepository.deletePengeluaran(Pengeluaran)
+    fun delete(laporan: Laporan ){
+        mRepository.delete(laporan)
     }
 }

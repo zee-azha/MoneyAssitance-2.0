@@ -1,24 +1,25 @@
-package com.example.moneyreportv2.helper.pemasukan
+package com.example.moneyreportv2.helper
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.moneyreportv2.database.pemasukan.Pemasukan
+import com.example.moneyreportv2.database.Laporan
 
-class PemasukanDiffCallback(private val mOldPemasukan: List<Pemasukan>, private val mNewPemasukan: List<Pemasukan>):DiffUtil.Callback() {
+
+class LaporanDiffCallback(private val mOldLaporan: List<Laporan>, private val mNewLaporan: List<Laporan>):DiffUtil.Callback() {
     override fun getOldListSize(): Int {
-        return mOldPemasukan.size
+        return mOldLaporan.size
     }
 
     override fun getNewListSize(): Int {
-        return mNewPemasukan.size
+        return mNewLaporan.size
     }
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        return mOldPemasukan[oldItemPosition].id == mNewPemasukan[newItemPosition].id
+        return mOldLaporan[oldItemPosition].id == mNewLaporan[newItemPosition].id
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val oldEmployee = mOldPemasukan[oldItemPosition]
-        val newEmployee = mNewPemasukan[newItemPosition]
+        val oldEmployee = mOldLaporan[oldItemPosition]
+        val newEmployee = mNewLaporan[newItemPosition]
 
         return oldEmployee.date == newEmployee.date && oldEmployee.category == newEmployee.category && oldEmployee.amount == newEmployee.amount && oldEmployee.description == newEmployee.description
     }

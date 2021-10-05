@@ -25,13 +25,13 @@ class Laporan (
     @ColumnInfo(name = "deskripsi")
     var description: String? = null,
 
-    @ColumnInfo(name = "Pemasukan", )
+    @ColumnInfo(name = "pemasukan", )
     var pemasukan: Int? = null,
 
     @ColumnInfo(name = "pengeluaran")
     var pengeluaran: Int? = null,
 
-    @ColumnInfo(name = "Total")
+    @ColumnInfo(name = "total")
     var amount: Int? = null
 
 

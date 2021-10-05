@@ -7,15 +7,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneyreportv2.database.Laporan
 import com.example.moneyreportv2.databinding.ItemListBinding
+import com.example.moneyreportv2.databinding.ReportListBinding
 import com.example.moneyreportv2.ui.pemasukan.PemasukanAddUpdate
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class PemasukanAdapter: RecyclerView.Adapter<PemasukanAdapter.LaporanViewHolder>() {
+class LaporanAdapter: RecyclerView.Adapter<LaporanAdapter.LaporanViewHolder>() {
     private val listLaporan = ArrayList<Laporan>()
-    fun setListPemasukan(listLaporan: List<Laporan>) {
+
+    fun setListLaporan(listLaporan: List<Laporan>) {
         val diffCallback = LaporanDiffCallback(this.listLaporan, listLaporan)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         this.listLaporan.clear()
@@ -23,7 +25,7 @@ class PemasukanAdapter: RecyclerView.Adapter<PemasukanAdapter.LaporanViewHolder>
         diffResult.dispatchUpdatesTo(this)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LaporanViewHolder {
-        val binding = ItemListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ReportListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return LaporanViewHolder(binding)
     }
     override fun onBindViewHolder(holder: LaporanViewHolder, position: Int) {
@@ -32,17 +34,15 @@ class PemasukanAdapter: RecyclerView.Adapter<PemasukanAdapter.LaporanViewHolder>
     override fun getItemCount(): Int {
         return listLaporan.size
     }
-    inner class LaporanViewHolder(private val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class LaporanViewHolder(private val binding: ReportListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(laporan: Laporan) {
             with(binding) {
                 tvItemDate.text = laporan.date
-                tvItemDescription.text = laporan.description
-                tvItemCategory.text = laporan.category
-                cvItemNote.setOnClickListener {
-                    val intent = Intent(it.context, PemasukanAddUpdate::class.java)
-                    intent.putExtra(PemasukanAddUpdate.EXTRA_PEMASUKAN, laporan)
-                    it.context.startActivity(intent)
-                }
+                tvItemPemasukan.text = laporan.pemasukan.toString()
+                tvItemPengeluaran.text = laporan.pengeluaran.toString()
+                tvItemTotal.text =laporan.amount.toString()
+
+
             }
         }
     }

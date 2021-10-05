@@ -22,6 +22,7 @@
     <string name="jumlah">Jumlah Uang</string>
     <string name="category">Kategory</string>
     <string name="pengeluaran">Pengeluaran</string>
+    <string name="total">Total</string>
     <string name="deskripsi">deskripsi</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string-array name="kategori_pemasukan">

@@ -41,4 +41,9 @@ class LaporanRepository(application: Application) {
     fun getPemasukanByDate(date: String):LiveData<List<Laporan>> = mLaporanDao.getPemasukanByDate(date)
 
     fun getPengeluaranByDate(date: String):LiveData<List<Laporan>> = mLaporanDao.getPengeluaranByDate(date)
+
+    fun getLaporan():LiveData<List<Laporan>> = mLaporanDao.getLaporan()
+
+    fun getTotal():LiveData<List<Laporan>> = mLaporanDao.getTotal()
+
 }

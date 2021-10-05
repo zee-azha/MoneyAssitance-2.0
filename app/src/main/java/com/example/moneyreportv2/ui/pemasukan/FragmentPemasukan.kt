@@ -22,7 +22,7 @@ class FragmentPemasukan : Fragment(R.layout.fragment_pemasukan){
     private var _activityMainBinding : FragmentPemasukanBinding? = null
     private val binding get() = _activityMainBinding
     private lateinit var adapter: PemasukanAdapter
-    private var dateFormatter: SimpleDateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
+    private var dateFormatter: SimpleDateFormat = SimpleDateFormat("yyyy-MMMM-dd", Locale.getDefault())
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

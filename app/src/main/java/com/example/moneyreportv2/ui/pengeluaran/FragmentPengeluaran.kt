@@ -23,7 +23,7 @@ class FragmentPengeluaran : Fragment(R.layout.fragment_pengeluaran){
     private var _activityMainBinding : FragmentPengeluaranBinding? = null
     private val binding get() = _activityMainBinding
     private lateinit var adapter: PengeluaranAdapter
-    private var dateFormatter: SimpleDateFormat = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
+    private var dateFormatter: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

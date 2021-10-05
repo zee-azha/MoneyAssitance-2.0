@@ -1,7 +1,11 @@
 package com.example.moneyreportv2.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.Settings
+import android.view.Menu
+import android.view.MenuItem
 import androidx.annotation.StringRes
 import androidx.viewpager2.widget.ViewPager2
 import com.example.moneyreportv2.R
@@ -36,6 +40,22 @@ companion object{
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu ): Boolean {
+        menuInflater.inflate(R.menu.report_menu,menu)
+
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId==R.id.report_menu){
+            val mIntent = Intent(this,ReportActivity::class.java)
+            startActivity(mIntent)
+
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 
 
 }

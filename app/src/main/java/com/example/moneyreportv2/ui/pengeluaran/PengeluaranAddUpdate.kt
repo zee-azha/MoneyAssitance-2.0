@@ -32,7 +32,7 @@ class PengeluaranAddUpdate : AppCompatActivity(){
 
     private var _activityPengeluaranAddUpdateBinding: ActivityPengeluaranAddUpdateBinding? = null
     private val binding get() = _activityPengeluaranAddUpdateBinding
-    private var dateFormatter: SimpleDateFormat = SimpleDateFormat("yyyy/MM/dd",Locale.getDefault())
+    private var dateFormatter: SimpleDateFormat = SimpleDateFormat("yyyy-MM-dd",Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
